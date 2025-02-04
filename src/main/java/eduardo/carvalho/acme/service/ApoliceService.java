@@ -76,56 +76,5 @@ public class ApoliceService {
         // Salvar novamente a apolice com o status de risco
         apoliceRepository.save(apolice);
     }
-
-    // Encontrar apolice por ID
-    public Optional<Apolice> getApoliceById(String id) {
-        return apoliceRepository.findById(id);
-    }
-
-    // Encontrar apolices por customerId
-    public List<Apolice> getApolicesByCustomerId(UUID customerId) {
-        return apoliceRepository.findByCustomerId(customerId);
-    }
-
-    // Atualizar uma apolice
-    public Apolice updateApolice(String id, Apolice updatedApolice) {
-        if (apoliceRepository.existsById(id)) {
-            updatedApolice.setId(id);
-            return apoliceRepository.save(updatedApolice);
-        } else {
-            return null; // ou lançar exceção
-        }
-    }
-
-    // Excluir apolice
-    public boolean deleteApolice(String id) {
-        if (apoliceRepository.existsById(id)) {
-            apoliceRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-    // Adicionar cobertura à apolice
-    public Apolice addCoverage(String apoliceId, String coverageName, BigDecimal coverageAmount) {
-        Optional<Apolice> apoliceOpt = apoliceRepository.findById(apoliceId);
-        if (apoliceOpt.isPresent()) {
-            Apolice apolice = apoliceOpt.get();
-            apolice.getCoverages().put(coverageName, coverageAmount);
-            return apoliceRepository.save(apolice);
-        }
-        return null; // ou lançar exceção
-    }
-
-    // Adicionar histórico à apolice
-    public Apolice addHistory(String apoliceId, History history) {
-        Optional<Apolice> apoliceOpt = apoliceRepository.findById(apoliceId);
-        if (apoliceOpt.isPresent()) {
-            Apolice apolice = apoliceOpt.get();
-            apolice.getHistory().add(history);
-            return apoliceRepository.save(apolice);
-        }
-        return null; // ou lançar exceção
-    }
 }
 
